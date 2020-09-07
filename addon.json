@@ -1,0 +1,24 @@
+{
+  "key": "Filestack",
+  "name": "Filestack",
+  "description": "This plugin for managing attachments, uploaded by users. Uploads will be handled by Filestack.",
+  "version": "1.0.0",
+  "documentationUrl": "http://vanilla.topcoder-dev.com",
+  "type": "addon",
+  "priority": "99",
+  "icon": "topcoder-logo.jpeg",
+  "mobileFriendly": true,
+  "hasLocale": false,
+  "settingsUrl": "/settings/filestack",
+  "settingsPermission": "Garden.Settings.Manage",
+  "authors": [
+    {
+      "name": "Topcoder",
+      "email": "support@topcoder.com",
+      "homepage": "https://topcoder.com"
+    }
+  ],
+  "require": {
+    "vanilla": ">=3.0"
+  }
+}
