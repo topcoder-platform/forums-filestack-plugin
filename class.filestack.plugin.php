@@ -162,6 +162,10 @@ class FilestackPlugin extends Gdn_Plugin {
             'Garden.Upload.MaxFileSize' => ['Control' => 'TextBox', 'Default' => c('Garden.Upload.MaxFileSize', ini_get('upload_max_filesize')), 'Description' => 'Allowed Max File Size. Accepted Measurements: Megabyte - M, Gigabyte - G.'],
          ]);
 
+        if($cf->form()->authenticatedPostBack()) {
+            $cf->form()->validateRule('Plugins.Filestack.ApiKey', 'ValidateRequired', t('You must provide Filestack API Key.'));
+        }
+
         $sender->setData('Title', sprintf(t('%s Settings'), 'Filestack'));
         $cf->renderAll();
     }
