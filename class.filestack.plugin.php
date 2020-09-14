@@ -171,6 +171,9 @@ class FilestackPlugin extends Gdn_Plugin {
     }
 
     public function gdn_upload_SaveAs_handler($sender, $args){
+        if(!c('Plugins.Filestack.ApiKey')) {
+            return;
+        }
         $parsed = & $args['Parsed'];
         $handled =& $args['Handled'];
         $tmpFilePath = $args['Path'];
