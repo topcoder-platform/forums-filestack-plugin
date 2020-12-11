@@ -176,9 +176,16 @@ class FilestackPlugin extends Gdn_Plugin {
         }
         $parsed = & $args['Parsed'];
         $handled =& $args['Handled'];
+        $options = $args['Options'];
+        $fileName = val('ClientFileName', $options);
         $tmpFilePath = $args['Path'];
         $upload = new Gdn_FilestackUpload();
-        $filelink = $upload->saveAs($tmpFilePath);
+        $filestackOptions = [];
+        if($fileName) {
+            $filestackOptions['filename'] = $fileName;
+        }
+        $filelink = $upload->saveAs($tmpFilePath, $filestackOptions);
+
         $parsed['Name'] = $filelink;
         $parsed['SaveName'] = $filelink;
         # Delete a temp file
@@ -221,14 +228,14 @@ class Gdn_FilestackUpload {
      * @return array|bool
      * @throws Exception
      */
-    public function saveAs($source) {
+    public function saveAs($source, $options = []) {
         $apiKey = c('Plugins.Filestack.ApiKey');
         $client = new FilestackClient($apiKey);
         try {
-            $filelink = $client->upload($source);
+            $filelink = $client->upload($source, $options);
             // get metadata of file
-            $fields = [];
-            $metadata = $client->getMetaData($filelink->handle, $fields);
+            // $fields = [];
+            // $metadata = $client->getMetaData($filelink->handle, $fields);
             return $filelink->url();
         } catch (FilestackException $e) {
             $error = $e->getCode(). ': '.$e->getMessage();
