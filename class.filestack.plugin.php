@@ -244,3 +244,13 @@ class Gdn_FilestackUpload {
     }
 
 }
+
+if (!function_exists('file_embed_process_url')) {
+
+    function file_embed_process_url($url) {
+        if (strpos($url, 'filestack') !== false) {
+            return $url . '?dl=true';
+        }
+        return $url;
+    }
+}
